@@ -143,7 +143,7 @@ const PORTFOLIO_CONFIG = {
 
     // SEO Configuration
     seo: {
-        title: "JK Inc. - Creative Development Studio",
+        title: "JK Inc. - We can code",
         description: "Professional development studio specializing in Roblox scripting, web applications, and Discord bots. Building exceptional digital experiences with technical excellence.",
         keywords: ["jk inc", "roblox", "lua scripting", "web development", "discord bots", "creative studio"],
         author: "JK Inc.",
