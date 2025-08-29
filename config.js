@@ -44,15 +44,25 @@ const PORTFOLIO_CONFIG = {
             // Roblox Scripting Projects - Easy to add your scripts
             roblox: [
                 {
-                    title: "Example Roblox Script",
-                    description: "A sample Roblox scripting project",
-                    category: "Example",
-                    image: "assets/scripts/example.jpg",
-                    robloxUrl: "https://www.roblox.com/communities/34728000/Mauve-Games#!/about",
-                    lines: "1K+",
-                    performance: "90%",
-                    features: ["Example Feature 1", "Example Feature 2", "Example Feature 3"],
-                    status: "inactive" // Set to "active" when you have real projects
+                    title: "Advanced Police AI System",
+                    description: "Intelligent law enforcement simulation with tactical coordination and dynamic threat response. Features escalating police response, team coordination, and realistic combat mechanics.",
+                    category: "AI & Game Systems",
+                    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9tDT3NuuGqqjFbIGo3JNgpMEWEjquWZCu3g&s",
+                    githubUrl: "https://github.com/juneandkaisonincorporated/Police-System",
+                    robloxUrl: null,
+                    lines: "10K+",
+                    performance: "95%",
+                    features: [
+                        "Behavioral State Machines",
+                        "Team Coordination Algorithms", 
+                        "Dynamic Pathfinding",
+                        "Raycast Ballistics System",
+                        "Search Grid Implementation",
+                        "Threat Escalation Engine",
+                        "Sniper Overwatch System",
+                        "Communication Network"
+                    ],
+                    status: "active" // Now active so it will show
                 }
             ],
 
@@ -205,10 +215,10 @@ const PORTFOLIO_CONFIG = {
     portfolioManager: {
         // Get active projects for a specific category
         getActiveProjects: function(category) {
-            if (!this.portfolio || !this.portfolio[category]) {
+            if (!PORTFOLIO_CONFIG.portfolio || !PORTFOLIO_CONFIG.portfolio[category]) {
                 return [];
             }
-            return this.portfolio[category].filter(project => project.status === 'active');
+            return PORTFOLIO_CONFIG.portfolio[category].filter(project => project.status === 'active');
         },
 
         // Check if a section should be shown (has active projects)
@@ -225,17 +235,17 @@ const PORTFOLIO_CONFIG = {
 
         // Add a new project to a category
         addProject: function(category, project) {
-            if (!this.portfolio[category]) {
-                this.portfolio[category] = [];
+            if (!PORTFOLIO_CONFIG.portfolio[category]) {
+                PORTFOLIO_CONFIG.portfolio[category] = [];
             }
-            this.portfolio[category].push(project);
+            PORTFOLIO_CONFIG.portfolio[category].push(project);
             this.updatePortfolio();
         },
 
         // Remove a project from a category
         removeProject: function(category, projectTitle) {
-            if (this.portfolio[category]) {
-                this.portfolio[category] = this.portfolio[category].filter(
+            if (PORTFOLIO_CONFIG.portfolio[category]) {
+                PORTFOLIO_CONFIG.portfolio[category] = PORTFOLIO_CONFIG.portfolio[category].filter(
                     project => project.title !== projectTitle && project.name !== projectTitle
                 );
                 this.updatePortfolio();
@@ -244,8 +254,8 @@ const PORTFOLIO_CONFIG = {
 
         // Update project status (active, inactive, coming-soon)
         updateProjectStatus: function(category, projectTitle, newStatus) {
-            if (this.portfolio[category]) {
-                const project = this.portfolio[category].find(
+            if (PORTFOLIO_CONFIG.portfolio[category]) {
+                const project = PORTFOLIO_CONFIG.portfolio[category].find(
                     p => p.title === projectTitle || p.name === projectTitle
                 );
                 if (project) {
@@ -257,7 +267,7 @@ const PORTFOLIO_CONFIG = {
 
         // Update portfolio and trigger re-render
         updatePortfolio: function() {
-            console.log('Portfolio updated:', this.portfolio);
+            console.log('Portfolio updated:', PORTFOLIO_CONFIG.portfolio);
             this.renderPortfolio();
         },
 

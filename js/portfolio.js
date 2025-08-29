@@ -5,6 +5,20 @@ class PortfolioRenderer {
     constructor() {
         this.config = window.PORTFOLIO_CONFIG;
         this.helpers = window.PortfolioHelpers;
+        
+        if (!this.config) {
+            console.error("PORTFOLIO_CONFIG not found, retrying in 100ms...");
+            setTimeout(() => {
+                this.config = window.PORTFOLIO_CONFIG;
+                if (this.config) {
+                    this.init();
+                } else {
+                    console.error("PORTFOLIO_CONFIG still not found after retry");
+                }
+            }, 100);
+            return;
+        }
+        
         this.init();
     }
 
@@ -16,6 +30,7 @@ class PortfolioRenderer {
     renderPortfolio() {
         const visibleSections = this.config.portfolioManager.getVisibleSections();
         console.log("Rendering portfolio with visible sections:", visibleSections);
+        console.log("Portfolio config:", this.config.portfolio);
         
         this.updateNavigation(visibleSections);
         this.toggleSections(visibleSections);
@@ -76,9 +91,13 @@ class PortfolioRenderer {
 
     renderRobloxProjects() {
         const robloxSection = document.querySelector('#roblox .roblox-grid');
-        if (!robloxSection) return;
+        if (!robloxSection) {
+            console.log("Roblox section not found");
+            return;
+        }
 
         const activeProjects = this.config.portfolioManager.getActiveProjects('roblox');
+        console.log("Active Roblox projects:", activeProjects);
         
         if (activeProjects.length === 0) {
             robloxSection.innerHTML = '<p class="no-projects">No Roblox projects available at the moment.</p>';
@@ -86,11 +105,15 @@ class PortfolioRenderer {
         }
 
         robloxSection.innerHTML = activeProjects.map(project => `
-            <div class="roblox-item" data-category="${project.category}">
+            <div class="roblox-item ${project.title.toLowerCase().includes('police') ? 'police-system' : ''}" data-category="${project.category}">
                 <div class="roblox-image">
-                    <div class="placeholder-image">
-                        <i class="fas fa-code"></i>
-                    </div>
+                    ${project.image ? `
+                        <img src="${project.image}" alt="${project.title}" />
+                    ` : `
+                        <div class="placeholder-image">
+                            <i class="fas fa-code"></i>
+                        </div>
+                    `}
                 </div>
                 <div class="roblox-overlay">
                     <h3>${project.title}</h3>
@@ -100,10 +123,12 @@ class PortfolioRenderer {
                         <span class="stat">Performance: ${project.performance}</span>
                     </div>
                     <div class="roblox-links">
-                        <a href="${project.robloxUrl}" class="roblox-link" target="_blank">
-                            <i class="fas fa-external-link-alt"></i>
-                            View Scripts
+                        ${project.githubUrl ? `
+                        <a href="${project.githubUrl}" class="roblox-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                            View Code
                         </a>
+                        ` : ''}
                     </div>
                 </div>
             </div>

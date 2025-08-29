@@ -63,6 +63,11 @@ class AnimationController {
         const interactiveElements = document.querySelectorAll('[data-mouse-effect]');
         
         interactiveElements.forEach(element => {
+            // Skip elements that have protection attributes
+            if (element.hasAttribute('data-no-animation') || element.getAttribute('data-mouse-effect') === 'false') {
+                return;
+            }
+            
             element.addEventListener('mousemove', (e) => {
                 this.handleMouseMove(e, element);
             });
@@ -95,6 +100,11 @@ class AnimationController {
 
     // Play specific animation
     playAnimation(element, animationType) {
+        // Skip animations for elements with protection attributes
+        if (element.hasAttribute('data-no-animation')) {
+            return;
+        }
+        
         const animations = {
             'fade-in': () => this.fadeIn(element),
             'fade-in-up': () => this.fadeInUp(element),
@@ -254,6 +264,11 @@ class AnimationController {
 
     // Mouse interaction handlers
     handleMouseMove(e, element) {
+        // Skip mouse effects for elements with protection attributes
+        if (element.hasAttribute('data-no-animation') || element.getAttribute('data-mouse-effect') === 'false') {
+            return;
+        }
+        
         const rect = element.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;

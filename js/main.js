@@ -384,6 +384,10 @@ function setupDraggableCodeWindow() {
 
     // Setup traffic light buttons
     setupTrafficLightButtons();
+    
+    // Prevent animation system from interfering with code preview
+    codePreview.setAttribute('data-no-animation', 'true');
+    codePreview.setAttribute('data-mouse-effect', 'false');
 
     function startDragging(e) {
         if (isClosed) return;
