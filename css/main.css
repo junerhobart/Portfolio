@@ -1026,6 +1026,8 @@ section {
 .roblox-overlay {
     padding: var(--spacing-lg);
     background: var(--bg-card);
+    position: relative;
+    z-index: 1;
 }
 
 .roblox-stats {
@@ -1052,6 +1054,8 @@ section {
 
 .roblox-links {
     margin-top: var(--spacing-md);
+    position: relative;
+    z-index: 5;
 }
 
 .roblox-link {
@@ -1065,6 +1069,10 @@ section {
     border: 1px solid var(--border-color);
     transition: var(--transition-fast);
     box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
 }
 
 .roblox-link:hover {

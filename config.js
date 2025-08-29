@@ -103,7 +103,7 @@ const PORTFOLIO_CONFIG = {
         discord: {
             june: "https://discordapp.com/users/1131239669225488476",
             kaison: "https://discordapp.com/users/1278537947976700026",
-            support: "https://discord.gg/4vBxaNBCyv" // Your Discord support server
+            support: "https://discord.gg/nfPAuUxGYJ" // Your Discord support server
         },
         roblox: {
             june: "kizznall",
@@ -111,7 +111,7 @@ const PORTFOLIO_CONFIG = {
         },
         social: {
             roblox: "https://www.roblox.com/communities/34728000/Mauve-Games#!/about", // Your Roblox group
-            discord: "https://discord.gg/4vBxaNBCyv" // Your Discord server
+            discord: "https://discord.gg/nfPAuUxGYJ" // Your Discord server
         }
     },
 

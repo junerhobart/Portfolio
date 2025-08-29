@@ -98,13 +98,15 @@ class PortfolioRenderer {
 
         const activeProjects = this.config.portfolioManager.getActiveProjects('roblox');
         console.log("Active Roblox projects:", activeProjects);
+        console.log("Config object:", this.config);
+        console.log("Portfolio manager:", this.config.portfolioManager);
         
         if (activeProjects.length === 0) {
             robloxSection.innerHTML = '<p class="no-projects">No Roblox projects available at the moment.</p>';
             return;
         }
 
-        robloxSection.innerHTML = activeProjects.map(project => `
+        const generatedHTML = activeProjects.map(project => `
             <div class="roblox-item ${project.title.toLowerCase().includes('police') ? 'police-system' : ''}" data-category="${project.category}">
                 <div class="roblox-image">
                     ${project.image ? `
@@ -133,6 +135,19 @@ class PortfolioRenderer {
                 </div>
             </div>
         `).join('');
+        
+        console.log("Generated HTML:", generatedHTML);
+        robloxSection.innerHTML = generatedHTML;
+        
+        // Add click event listeners to test if buttons work
+        const buttons = robloxSection.querySelectorAll('.roblox-link');
+        console.log("Found buttons:", buttons.length);
+        buttons.forEach((button, index) => {
+            console.log(`Button ${index}:`, button.href, button.textContent);
+            button.addEventListener('click', (e) => {
+                console.log('Button clicked!', e.target.href);
+            });
+        });
     }
 
     renderWebProjects() {
