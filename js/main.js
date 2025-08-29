@@ -13,6 +13,7 @@ function initializeApp() {
     setupContactForm();
     setupFloatingElements();
     setupTypingEffect();
+    setupDraggableCodeWindow();
 }
 
 // Navigation Setup
@@ -351,6 +352,176 @@ function addClassWithAnimation(element, className) {
 // Remove CSS class with animation
 function removeClassWithAnimation(element, className) {
     element.classList.remove(className);
+}
+
+// Draggable Code Window Setup
+function setupDraggableCodeWindow() {
+    const codePreview = document.querySelector('.code-preview');
+    if (!codePreview) return;
+
+    let isDragging = false;
+    let isClosed = false;
+    let startX, startY, startLeft, startTop;
+    let originalPosition = { left: 0, top: 0 };
+
+    // Store original position
+    const rect = codePreview.getBoundingClientRect();
+    originalPosition.left = rect.left;
+    originalPosition.top = rect.top;
+
+    // Make window draggable by header
+    const codeHeader = codePreview.querySelector('.code-header');
+    const codeContent = codePreview.querySelector('.code-content');
+    
+    if (codeHeader) {
+        codeHeader.style.cursor = 'grab';
+        codeHeader.style.userSelect = 'none';
+
+        codeHeader.addEventListener('mousedown', startDragging);
+        codeHeader.addEventListener('mouseup', stopDragging);
+        codeHeader.addEventListener('mouseleave', stopDragging);
+    }
+
+    // Setup traffic light buttons
+    setupTrafficLightButtons();
+
+    function startDragging(e) {
+        if (isClosed) return;
+        
+        e.preventDefault(); // Prevent default behavior
+        e.stopPropagation(); // Stop event bubbling
+        
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        // Get current position relative to viewport
+        const rect = codePreview.getBoundingClientRect();
+        startLeft = rect.left;
+        startTop = rect.top;
+        
+        // Set initial fixed positioning
+        codePreview.style.position = 'fixed';
+        codePreview.style.left = startLeft + 'px';
+        codePreview.style.top = startTop + 'px';
+        codePreview.style.zIndex = '1000';
+        codePreview.style.transform = 'none'; // Remove transforms during drag
+        codePreview.style.transition = 'none';
+        codeHeader.style.cursor = 'grabbing';
+        
+        // Prevent text selection during drag
+        document.body.style.userSelect = 'none';
+        document.body.style.webkitUserSelect = 'none';
+        document.body.style.mozUserSelect = 'none';
+        document.body.style.msUserSelect = 'none';
+        
+        // Disable pointer events on code content during drag
+        if (codeContent) {
+            codeContent.style.pointerEvents = 'none';
+        }
+        
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDragging);
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        
+        e.preventDefault(); // Prevent default behavior
+        
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
+        
+        const newLeft = startLeft + deltaX;
+        const newTop = startTop + deltaY;
+        
+        // Keep window within viewport bounds
+        const maxX = window.innerWidth - codePreview.offsetWidth;
+        const maxY = window.innerHeight - codePreview.offsetHeight;
+        
+        codePreview.style.left = Math.max(0, Math.min(newLeft, maxX)) + 'px';
+        codePreview.style.top = Math.max(0, Math.min(newTop, maxY)) + 'px';
+        codePreview.style.position = 'fixed';
+        codePreview.style.zIndex = '1000';
+        codePreview.style.transform = 'none'; // Remove any transforms during drag
+    }
+
+    function stopDragging() {
+        isDragging = false;
+        codePreview.style.transition = 'all 0.3s ease';
+        if (codeHeader) {
+            codeHeader.style.cursor = 'grab';
+        }
+        
+        // Restore text selection
+        document.body.style.userSelect = '';
+        document.body.style.webkitUserSelect = '';
+        document.body.style.mozUserSelect = '';
+        document.body.style.msUserSelect = '';
+        
+        // Re-enable pointer events on code content
+        if (codeContent) {
+            codeContent.style.pointerEvents = '';
+        }
+        
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('mouseup', stopDragging);
+    }
+
+    function setupTrafficLightButtons() {
+        const dots = codePreview.querySelectorAll('.dot');
+        
+        // Close button (red)
+        dots[0].addEventListener('click', closeWindow);
+        
+        // Minimize button (yellow) - Rick Roll
+        dots[1].addEventListener('click', minimizeWindow);
+        
+        // Expand button (green) - Rick Roll
+        dots[2].addEventListener('click', expandWindow);
+    }
+
+    function closeWindow() {
+        isClosed = true;
+        codePreview.style.transform = 'scale(0.8)';
+        codePreview.style.opacity = '0';
+        
+        setTimeout(() => {
+            codePreview.style.display = 'none';
+            
+            // Pop back up after 2 seconds
+            setTimeout(() => {
+                resetWindow();
+            }, 2000);
+        }, 300);
+    }
+
+    function minimizeWindow() {
+        // Rick Roll - Open Never Gonna Give You Up
+        window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+    }
+
+    function expandWindow() {
+        // Rick Roll - Open Never Gonna Give You Up
+        window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+    }
+
+    function resetWindow() {
+        isClosed = false;
+        codePreview.style.display = 'block';
+        codePreview.style.animation = 'window-pop 0.6s ease-out';
+        codePreview.style.transform = 'scale(1) perspective(1000px) rotateX(5deg)';
+        codePreview.style.opacity = '1';
+        codePreview.style.left = '';
+        codePreview.style.top = '';
+        codePreview.style.position = 'relative';
+        codePreview.style.zIndex = '';
+        
+        // Reset animation after it completes
+        setTimeout(() => {
+            codePreview.style.animation = 'float-code 6s ease-in-out infinite';
+        }, 600);
+    }
 }
 
 // Export functions for use in other modules

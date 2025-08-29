@@ -8,7 +8,7 @@ const PORTFOLIO_CONFIG = {
         tagline: "Creative Development Studio",
         logo: "", // Add your logo URL here
         favicon: "", // Add your favicon URL here
-        emoji: "✨" // Add your brand emoji
+        emoji: "⚡" // Add your brand emoji
     },
 
     // Team Members - Easy to customize with profile pictures
@@ -19,7 +19,7 @@ const PORTFOLIO_CONFIG = {
                 role: "Creative Director & Roblox Scripter",
                 avatar: "https://cdn.discordapp.com/avatars/1131239669225488476/cbde418b9ecd374f317e1ed81ed54ad0?size=1024", // Add your profile picture here
                 skills: ["Luau", "Game Design", "Web Development", "Discord Bots", "Frontend"],
-                bio: "Passionate about creating exceptional Roblox experiences with a focus on user-centered game design.",
+                bio: "Specialized in Roblox game development with expertise in Lua scripting, game mechanics, and user experience design.",
                 social: {
                     roblox: "https://www.roblox.com/users/7150123636/profile", // Your Roblox profile
                     discord: "https://discordapp.com/users/1131239669225488476" // Your Discord profile
@@ -30,7 +30,7 @@ const PORTFOLIO_CONFIG = {
                 role: "Technical Lead & Web Developer",
                 avatar: "https://cdn.discordapp.com/avatars/1278537947976700026/a_d4c6e952dc852f7ad4b6a94860913e2d?size=1024", // Add your profile picture here
                 skills: ["Luau", "Backend", "Web Development", "Discord Bots", "Frontend"],
-                bio: "Full-stack developer with a passion for creating seamless web experiences and robust backend systems.",
+                bio: "Full-stack developer with expertise in modern web technologies, backend architecture, and scalable application development.",
                 social: {
                     roblox: "https://www.roblox.com/users/378626111/profile", // Your Roblox profile
                     discord: "https://discordapp.com/users/1278537947976700026" // Your Discord profile
@@ -101,9 +101,7 @@ const PORTFOLIO_CONFIG = {
         },
         social: {
             roblox: "https://www.roblox.com/communities/34728000/Mauve-Games#!/about", // Your Roblox group
-            discord: "https://discord.gg/4vBxaNBCyv", // Your Discord server
-            github: "https://github.com/your-org", // Your GitHub organization
-            twitter: "https://twitter.com/your-twitter" // Your Twitter
+            discord: "https://discord.gg/4vBxaNBCyv" // Your Discord server
         }
     },
 
@@ -146,7 +144,7 @@ const PORTFOLIO_CONFIG = {
     // SEO Configuration
     seo: {
         title: "JK Inc. - Creative Development Studio",
-        description: "Professional development studio specializing in Roblox scripting, web applications, and Discord bots. Spreading good vibes through code.",
+        description: "Professional development studio specializing in Roblox scripting, web applications, and Discord bots. Building exceptional digital experiences with technical excellence.",
         keywords: ["jk inc", "roblox", "lua scripting", "web development", "discord bots", "creative studio"],
         author: "JK Inc.",
         ogImage: "", // Add Open Graph image URL
@@ -192,14 +190,14 @@ const PORTFOLIO_CONFIG = {
 
     // Custom Content
     customContent: {
-        aboutText: "We're a passionate duo creating digital experiences that bring joy and functionality together. Our approach combines technical excellence with creative energy, making every project feel alive and purposeful.",
+        aboutText: "We're a professional development studio specializing in Roblox scripting, web development, and Discord bot creation. Our expertise combines technical precision with innovative design to deliver exceptional digital solutions.",
         heroSubtitle: "Creative Development Studio",
-        footerText: "Spreading good vibes through code",
-        // Add personality to your content
+        footerText: "Building exceptional digital experiences",
+        // Professional content styling
         personality: {
-            emoji: "✨",
-            catchphrase: "Spreading good vibes through code",
-            mood: "professional yet happy and hippy"
+            emoji: "⚡",
+            catchphrase: "Building exceptional digital experiences",
+            mood: "professional and innovative"
         }
     },
 
